@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- Adds positioning for calculator elements in addition to styling -->
+    <link rel="stylesheet" href="/css/calculator.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <title>Codeup Calculator</title>
+</head>
+<body>
+
+<!-- Adds title to display on page -->
+<p style="text-align:center;">
+    <span style="font-family:Cursive;
+    font-size:30px;
+    letter-spacing:2px;
+    color:000000;">
+    Simple Calculator
+    </span>
+</p>
+
+<div id="calculator">
+    <!-- Creates ReadOnly text areas. Sized to match button widths -->
+    <textarea id="firstNum" row = "1" cols = "5" readonly></textarea>
+    <textarea id="operator" row = "1" cols = "1" readonly></textarea>
+    <textarea id="secondNum" row = "1" cols = "5" readonly></textarea>
+
+    <!-- Creates number and operator buttons. Button style added with Bootstrap classes -->
+
+    <button data-number = "1" class = "btn btn-default numberButton firRow"> 1 </button>
+    <button data-number = "2" class = "btn btn-default numberButton firRow"> 2 </button>
+    <button data-number = "3" class = "btn btn-default numberButton firRow"> 3 </button>
+    <button data-operator = "+" class = "btn btn-warning operatorButton firRow"> + </button> 
+    <button data-number = "4" class = "btn btn-default numberButton secRow"> 4 </button>
+    <button data-number = "5" class = "btn btn-default numberButton secRow"> 5 </button>
+    <button data-number = "6" class = "btn btn-default numberButton numSixRow"> 6 </button>
+    <button data-operator = "-" class = "btn btn-warning operatorButton numSixRow"> - </button>
+    <button data-number = "7" class = "btn btn-default numberButton thiRow"> 7 </button>
+    <button data-number = "8" class = "btn btn-default numberButton thiRow"> 8 </button>
+    <button data-number = "9" class = "btn btn-default numberButton numNine"> 9 </button>
+    <button data-operator = "*" class = "btn btn-warning operatorButton multRow"> * </button>
+    <button data-clear = "C" class = "btn btn-danger clearButton fouRow"> C </button>
+    <button data-number = "0" class = "btn btn-default numberButton fouRow"> 0 </button>
+    <button data-equal = "=" class = "btn btn-success equalButton fouRow"> = </button>
+    <button data-operator = "/" class = "btn btn-warning operatorButton fouRow"> / </button>
+    <button data-number = "." class = "btn btn-info numberButton decimalRow"> . </button>
+    <button data-number = "-" class = "btn btn-info btn-xs numberButton negRow"> Neg </button>
+    <button data-operator = "^" class = "btn btn-info btn-xs operatorButton expRow"> Exp </button>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var side = "left" 
+
+// Sets "array" to reference classes of numberButton
+var numberButtons = document.getElementsByClassName("numberButton");
+
+// On 'click' goes to numberButtons "array" and outputs data-number string into text box denoted by "side" global variable.
+var numberPress = function (event){
+
+    var numberValue = this.getAttribute("data-number");
+    console.log(numberValue);
+        if (side == "left"){
+            // += adds a value instead of replacing the value
+            document.getElementById('firstNum').value += numberValue;
+        } else { document.getElementById('secondNum').value +=numberValue;
+
+        }
+    }
+// When button is with class of numberButton is pressed, produces NUMBER stored in data-number by the function numberPress.
+for (var i=0; i < numberButtons.length; i++) {
+    numberButtons[i].addEventListener('click', numberPress, false);
+}
+
+// Sets "array" of elements operatorButton to variable operatorButtons
+var operatorButtons = document.getElementsByClassName("operatorButton");
+
+var operatorPress = function (event){
+
+    var operatorValue = this.getAttribute("data-operator");
+    console.log(operatorValue);
+    document.getElementById('operator').value = operatorValue;
+    // When operator is clicked, this determines if a value has been entered into the left field, if not, a value can't be entered into the right field. Once the left field has a value, the global value "side" gets changed to right, allowing numbers to be placed in right field (reference lines 63 - 66).
+    var leftField = document.getElementById('firstNum').value;
+    if (leftField == null || leftField == "")
+    {
+        alert("Please enter first number of argument");
+    } else {
+        side = "right";    
+        }
+    }
+// On 'click' goes to operatorButtons "array" and outputs data-operator string into text box denoted by "side" global variable.
+for (var i=0; i < operatorButtons.length; i++) {
+operatorButtons[i].addEventListener('click', operatorPress, false);
+}
+
+// declaring variables for math operations
+var first;
+
+var operate;
+
+var second;
+
+var result = "";
+
+// Equals button preforms math by checking string in "operate" variable to select desired math operation
+
+var equalButtons = document.getElementsByClassName("equalButton");
+
+var equalPress = function (event){
+
+    first = document.getElementById("firstNum").value;
+
+    operate = document.getElementById("operator").value;
+
+    second = document.getElementById("secondNum").value;
+
+    if (operate == '+'){
+        result = (parseInt(first)+parseInt(second));
+    } else if (operate == '-'){
+        result = (first-second);
+    } else if (operate == '*'){
+        result = (first*second);
+    } else if (operate == '^'){
+        result = (Math.pow(first, second));
+    } else {
+        result = (first/second);
+    }
+    console.log(result);
+    document.getElementById("firstNum").value = result;
+    document.getElementById("operator").value = "";
+    document.getElementById("secondNum").value = "";
+    side = "left";
+    }
+
+equalButtons[0].addEventListener('click', equalPress, false);
+
+//Clears all fields and resets "side" variable to left.
+var clearButtons = document.getElementsByClassName("clearButton");
+
+var clearPress = function (event){
+    document.getElementById("firstNum").value = "";
+    document.getElementById("operator").value = "";
+    document.getElementById("secondNum").value = "";
+    side = "left";
+}
+
+clearButtons[0].addEventListener('click', clearPress, false);
+
+
+})();
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+</body>
+</html>
