@@ -2,9 +2,13 @@
 
 function pageController(){
 
-$count = $_GET['count'];
+    if (!isset($_GET['count'])){
+        $count = 0;
+    } else {
+        $count = $_GET['count'];
+    }
 
-return ['count' => $count];
+    return ['count' => $count];
 
 }
 
