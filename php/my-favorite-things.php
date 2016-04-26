@@ -1,6 +1,14 @@
 <?php 
 
-$favorites = ['computers', 'cats', 'music', 'concerts', 'breakfast', 'denim', 'bicycles', 'keyboards', 'Seattle', 'Austin', 'video games']
+function pageController(){
+
+$array['favorites'] = ['computers', 'cats', 'music', 'concerts', 'breakfast', 'denim', 'bicycles', 'keyboards', 'Seattle', 'Austin', 'video games'];
+
+return $array;
+
+}
+
+extract(pageController());
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +23,7 @@ $favorites = ['computers', 'cats', 'music', 'concerts', 'breakfast', 'denim', 'b
 <ol>
 <?php foreach ($favorites as $favorites) { ?>
     
-    <li> <?php echo $favorites; ?> </li>
+    <li><?= $favorites; ?></li>
 
 <?php } ?>
 
