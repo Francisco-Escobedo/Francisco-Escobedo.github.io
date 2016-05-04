@@ -20,6 +20,10 @@ class ServerFunction{
         return $displayedNoun;
     }
 
+    public static function serverName(){
+       return self::generateAdjective() . ' ' . self::generateNoun();
+    }
+
 }
 
 ?>

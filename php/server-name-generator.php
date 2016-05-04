@@ -4,11 +4,7 @@ require_once 'ServerFunction.php';
 
 function pageController(){
 
-$printToScreen=array();
-$adj = ServerFunction::generateAdjective();
-$noun = ServerFunction::generateNoun();
-$printToScreen['serverName']= "$adj $noun";
-return $printToScreen;
+return ['serverName' => ServerFunction::serverName()];
 
 }
 
