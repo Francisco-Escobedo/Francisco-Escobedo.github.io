@@ -11,6 +11,7 @@ return ['serverName' => ServerFunction::serverName()];
 extract(pageController());
 
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>

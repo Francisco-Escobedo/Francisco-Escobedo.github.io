@@ -21,7 +21,7 @@ class ServerFunction{
     }
 
     public static function serverName(){
-       return self::generateAdjective() . ' ' . self::generateNoun();
+       return self::generateAdjective() . ' ' . self::generateNoun() . PHP_EOL;
     }
 
 }
